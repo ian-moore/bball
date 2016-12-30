@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="Simulation.fs" />
+    <Compile Include="SampleTeams.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
