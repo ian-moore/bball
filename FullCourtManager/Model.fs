@@ -28,6 +28,8 @@ type GameQuarter = First | Second | Third | Fourth | Overtime
 
 type Shot = Dunk | Layup | Floater | JumpShot | PostUp
 
+type TeamChoice = Home | Away
+
 type MissedShotResult = {
     ShootingPlayer: Player
     BlockingPlayer: Player option
@@ -50,8 +52,8 @@ type FreeThrowResult = {
 }
 
 type FoulResult = {
-    FoulingPlayer: Player
     FouledPlayer: Player option
+    FoulingPlayer: Player
     Made2pt: bool
     Made3pt: bool
     FreeThrows: FreeThrowResult option
@@ -83,6 +85,7 @@ type PlayerState = {
     Steals: int
     Assists: int
     Turnovers: int
+    Rebounds: int
     InGame: bool
     Attempt2pt: int
     Made2pt: int
@@ -99,6 +102,7 @@ let InitialPlayerState = {
     Assists = 0
     Turnovers = 0
     InGame = false
+    Rebounds = 0
     Attempt2pt = 0
     Made2pt = 0
     Attempt3pt = 0
@@ -111,8 +115,6 @@ type TeamState = {
     TeamInfo: Team
     PlayerStats: Map<int, PlayerState>
 }
-
-type TeamChoice = Home | Away
 
 type GameState = {
     CurrentQuarter: GameQuarter
