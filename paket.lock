@@ -1,0 +1,5 @@
+NUGET
+  remote: https://www.nuget.org/api/v2
+    NLog (4.4.1)
+    NLog.FSharp (4.2.3)
+      NLog (>= 4.2.3)

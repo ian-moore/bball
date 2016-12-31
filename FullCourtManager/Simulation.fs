@@ -2,6 +2,10 @@
 
 open FullCourtManager.Model
 
+type Configuration(logger:NLog.FSharp.Logger) =
+    member __.Logger = logger
+    member __.Random = System.Random ()
+
 let initializeTeamState team =
     let playerStats = team.Players |> Map.map (fun n p -> InitialPlayerState)
     { Score = 0<point>
@@ -86,8 +90,13 @@ let advanceQuarter state =
 let simulatePlay state =
     ShotClockViolation
 
-let simulateNextPlay config state =
-    simulatePlay state |> applyPlayResult state |> advanceQuarter
+let logPlayResult (logger:NLog.FSharp.Logger) (result:PlayResult) =
+    match result with
+    | ShotClockViolation -> logger.Info "%s" "Shot clock violation!"
+    result
+
+let simulateNextPlay (config:Configuration) state =
+    simulatePlay state |> logPlayResult config.Logger |> applyPlayResult state |> advanceQuarter
 
 let buildSimulator config : GameSimulator =
     let simPlay = simulateNextPlay config

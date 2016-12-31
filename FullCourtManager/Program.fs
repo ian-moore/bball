@@ -3,11 +3,14 @@ open FullCourtManager
 
 [<EntryPoint>]
 let main argv = 
+    
+    let logger = NLog.LogManager.GetLogger "FullCourtManager.Program" |> NLog.FSharp.Logger
+    let config = logger |> Simulation.Configuration
+
     let bulls = SampleTeams.Bulls
     let pacers = SampleTeams.Pacers
 
     let state = Simulation.initializeGameState bulls pacers
-    let random = System.Random ()
-    let simulator = Simulation.buildSimulator random
+    let simulator = Simulation.buildSimulator config
     let finalState = simulator state |> Async.RunSynchronously
     0
